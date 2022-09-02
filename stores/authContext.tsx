@@ -40,11 +40,13 @@ export function AuthProvider({ children }: Props) {
     netlifyIdentity.on("logout", () => {
       setUser(null);
     });
-    netlifyIdentity.init();
+   
     netlifyIdentity.on("init", () => {
       setUser(user)
       setAuthReady(true);
     });
+    
+    netlifyIdentity.init();
     return () => {
       netlifyIdentity.off("login");
       netlifyIdentity.off("logout");
