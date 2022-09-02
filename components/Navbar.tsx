@@ -1,7 +1,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { useAuth } from '../stores/authContext';
 
 export default function Navbar() {
+  const { user, login, logout,authReady } = useAuth();
+  console.log("user",authReady);
+  
   return (
     <div className="container">
       <nav>
