@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import netlifyIdentity from "netlify-identity-widget";
 type authContextType = {
   user: boolean | null;
@@ -23,26 +29,34 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }: Props) {
-  const [user, setUser] = useState<string | null>(null);
-console.log("user11",user);
+  const [user, setUser] = useState<{} | null>(null);
 
   useEffect(() => {
-    netlifyIdentity.on("login",(user:any)=>{
+    netlifyIdentity.on("login", (user: any) => {
       setUser(user);
-      netlifyIdentity.close()
-    })
-    netlifyIdentity.init()
-  }, [])
-  
+      netlifyIdentity.close();
+    });
+
+    netlifyIdentity.on("logout", () => {
+      setUser(null);
+    });
+    netlifyIdentity.init();
+
+    return ()=>{
+      netlifyIdentity.off("login");
+      netlifyIdentity.off("logout");
+    }
+  }, []);
+
   const login = () => {
-   netlifyIdentity.open()
+    netlifyIdentity.open();
   };
 
   const logout = () => {
-    
+    netlifyIdentity.logout();
   };
 
-  const value = {
+  const value:any = {
     user,
     login,
     logout,

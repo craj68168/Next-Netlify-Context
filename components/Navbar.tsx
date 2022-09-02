@@ -1,24 +1,40 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { useAuth } from '../stores/authContext';
+import Link from "next/link";
+import Image from "next/image";
+import { useAuth } from "../stores/authContext";
 
 export default function Navbar() {
-  const { user, login, logout,authReady } = useAuth();
-  
+  const { user, login, logout, authReady } = useAuth();
+
   return (
     <div className="container">
       <nav>
         <Image src="/rupee.png" width={50} height={48} />
         <h1>Gaming Vibes</h1>
         <ul>
-          <li><Link href="/"><a>Home</a></Link></li>
-          <li><Link href="/guides"><a>Guides</a></Link></li>
-          <li onClick={login} className="btn">Login/Signup</li>
+          <li>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/guides">
+              <a>Guides</a>
+            </Link>
+          </li>
+          {user ? (
+             <li onClick={logout} className="btn">
+             Logout
+           </li>
+          ) : (
+            <li onClick={login} className="btn">
+            Login/Signup
+          </li>
+          )}
         </ul>
       </nav>
       <div className="banner">
         <Image src="/banner.png" width={966} height={276} />
       </div>
     </div>
-  )
+  );
 }
