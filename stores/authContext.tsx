@@ -24,8 +24,13 @@ export function useAuth() {
 
 export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<string | null>(null);
-  
+console.log("user11",user);
+
   useEffect(() => {
+    netlifyIdentity.on("login",(user:any)=>{
+      setUser(user);
+      netlifyIdentity.close()
+    })
     netlifyIdentity.init()
   }, [])
   

@@ -4,7 +4,6 @@ import { useAuth } from '../stores/authContext';
 
 export default function Navbar() {
   const { user, login, logout,authReady } = useAuth();
-  console.log("user",authReady);
   
   return (
     <div className="container">
@@ -14,6 +13,7 @@ export default function Navbar() {
         <ul>
           <li><Link href="/"><a>Home</a></Link></li>
           <li><Link href="/guides"><a>Guides</a></Link></li>
+          <li onClick={login} className="btn">Login/Signup</li>
         </ul>
       </nav>
       <div className="banner">
