@@ -7,7 +7,7 @@ import {
 } from "react";
 import netlifyIdentity from "netlify-identity-widget";
 type authContextType = {
-  user: boolean | null;
+  user: { email: string } | null;
   login: () => void;
   logout: () => void;
   authReady: boolean;
@@ -30,7 +30,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<{} | null>(null);
-
+  const [authReady, setAuthReady] = useState<boolean>(false);
   useEffect(() => {
     netlifyIdentity.on("login", (user: any) => {
       setUser(user);
@@ -41,11 +41,14 @@ export function AuthProvider({ children }: Props) {
       setUser(null);
     });
     netlifyIdentity.init();
-
-    return ()=>{
+    netlifyIdentity.on("init", () => {
+      setUser(user)
+      setAuthReady(true);
+    });
+    return () => {
       netlifyIdentity.off("login");
       netlifyIdentity.off("logout");
-    }
+    };
   }, []);
 
   const login = () => {
@@ -56,10 +59,11 @@ export function AuthProvider({ children }: Props) {
     netlifyIdentity.logout();
   };
 
-  const value:any = {
+  const value: any = {
     user,
     login,
     logout,
+    authReady
   };
   return (
     <>

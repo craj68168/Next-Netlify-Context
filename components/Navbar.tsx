@@ -10,27 +10,30 @@ export default function Navbar() {
       <nav>
         <Image src="/rupee.png" width={50} height={48} />
         <h1>Gaming Vibes</h1>
-        <ul>
-          <li>
-            <Link href="/">
-              <a>Home</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/guides">
-              <a>Guides</a>
-            </Link>
-          </li>
-          {user ? (
-             <li onClick={logout} className="btn">
-             Logout
-           </li>
-          ) : (
-            <li onClick={login} className="btn">
-            Login/Signup
-          </li>
-          )}
-        </ul>
+        {authReady && (
+          <ul>
+            <li>
+              <Link href="/">
+                <a>Home</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/guides">
+                <a>Guides</a>
+              </Link>
+            </li>
+            {user && <li>{user?.email}</li>}
+            {user ? (
+              <li onClick={logout} className="btn">
+                Logout
+              </li>
+            ) : (
+              <li onClick={login} className="btn">
+                Login/Signup
+              </li>
+            )}
+          </ul>
+        )}
       </nav>
       <div className="banner">
         <Image src="/banner.png" width={966} height={276} />
