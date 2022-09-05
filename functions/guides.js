@@ -1,4 +1,4 @@
-exports.guides = async (event, context) => {
+exports.handler = async (event, context) => {
   if (context.clientContext.user) {
     return {
       statusCode: 200,
