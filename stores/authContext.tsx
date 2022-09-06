@@ -7,7 +7,7 @@ import {
 } from "react";
 import netlifyIdentity from "netlify-identity-widget";
 type authContextType = {
-  user: { email: string } | null;
+  user:any;
   login: () => void;
   logout: () => void;
   authReady: boolean;
