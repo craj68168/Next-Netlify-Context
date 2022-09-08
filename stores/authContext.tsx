@@ -30,7 +30,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<{} | null>(null);
-  const [authReady, setAuthReady] = useState<boolean>(false);
+  const [authReady, setAuthReady] = useState<boolean>(true);
   useEffect(() => {
     netlifyIdentity.on("login", (user: any) => {
       setUser(user);

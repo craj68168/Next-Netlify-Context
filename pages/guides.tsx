@@ -1,6 +1,28 @@
 import { useContext, useEffect, useState } from "react";
+import styled from "styled-components";
 import { useAuth } from "../stores/authContext";
-import styles from "../styles/Guides.module.css";
+
+const Div = styled.div`
+  max-width: 960px;
+  margin: 40px auto;
+  letter-spacing: 1px;
+  line-height: 1.6em;
+`;
+const DivError = styled.div`
+  background-color: pink;
+  text-align: center;
+  padding: 10px;
+  color: black;
+  border-radius: 6px;
+  border: 2px solid red;
+`;
+const DivCard = styled.div`
+  background: white;
+  border-radius: 6px;
+  padding: 10px 20px;
+  margin: 10px 20px;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
+`;
 
 export default function Guides() {
   const { user, authReady } = useAuth();
@@ -33,12 +55,12 @@ export default function Guides() {
   }, [user, authReady]);
 
   return (
-    <div className={styles.guides}>
+    <Div>
       {!authReady && <div>Loading...</div>}
-      {error && <div className={styles.error}>{error}</div>}
+      {error && <DivError>{error}</DivError>}
       {guides &&
         guides?.map((data: any) => (
-          <div className={styles.card} key={data.title}>
+          <DivCard key={data.title}>
             <h3>{data.title}</h3>
             <h4>{data.author}</h4>
             <p>
@@ -47,8 +69,8 @@ export default function Guides() {
               architecto autem aliquam corrupti eaque totam at hic illum,
               officia non, nobis quo ducimus.
             </p>
-          </div>
+          </DivCard>
         ))}
-    </div>
+    </Div>
   );
 }
