@@ -7,7 +7,7 @@ import {
 } from "react";
 import netlifyIdentity from "netlify-identity-widget";
 type authContextType = {
-  user:any;
+  user: any;
   login: () => void;
   logout: () => void;
   authReady: boolean;
@@ -40,12 +40,12 @@ export function AuthProvider({ children }: Props) {
     netlifyIdentity.on("logout", () => {
       setUser(null);
     });
-   
+
     netlifyIdentity.on("init", () => {
-      setUser(user)
+      setUser(user);
       setAuthReady(true);
     });
-    
+
     netlifyIdentity.init();
     return () => {
       netlifyIdentity.off("login");
@@ -65,7 +65,7 @@ export function AuthProvider({ children }: Props) {
     user,
     login,
     logout,
-    authReady
+    authReady,
   };
   return (
     <>

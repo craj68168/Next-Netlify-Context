@@ -4,7 +4,7 @@ import { useAuth } from "../stores/authContext";
 
 export default function Navbar() {
   const { user, login, logout, authReady } = useAuth();
-console.log("auth ready",authReady);
+  console.log("auth ready", authReady);
 
   return (
     <div className="container">
